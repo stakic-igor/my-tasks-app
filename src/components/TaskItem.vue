@@ -7,6 +7,7 @@ const props = defineProps<{
 
 const emit = defineEmits<{
   deleteTask: [id: number]
+  completedTask: [id: number]
 }>()
 </script>
 
@@ -14,5 +15,6 @@ const emit = defineEmits<{
   <p>{{ list.id }} - {{ list.title }}</p>
   <p>{{ list.description }}</p>
   <p>{{ list.completed }}</p>
+  <input type="checkbox" :checked="list.completed" @change="$emit('completedTask', list.id)" />
   <button @click="$emit('deleteTask', list.id)">Delete</button>
 </template>

@@ -8,13 +8,24 @@ const props = defineProps<{
 
 const emit = defineEmits<{
   deleteTask: [id: number]
+  completedTask: [id: number]
 }>()
 
 const handleTaskDelete = (id: number) => {
   emit('deleteTask', id)
 }
+
+const handleCompletedTask = (id: number) => {
+  emit('completedTask', id)
+}
 </script>
 <template>
   <h1>Todo List</h1>
-  <TaskItem v-for="item in tasks" :key="item.id" :list="item" @delete-task="handleTaskDelete" />
+  <TaskItem
+    v-for="item in tasks"
+    :key="item.id"
+    :list="item"
+    @completed-task="handleCompletedTask"
+    @delete-task="handleTaskDelete"
+  />
 </template>

@@ -22,10 +22,21 @@ const completedCount = computed(() => {
 const activeCount = computed(() => {
   return myTasks.value.reduce((sum, item) => sum + (item.completed ? 0 : 1), 0)
 })
+
+const executeCompletedTask = (id: number) => {
+  const task = myTasks.value.find((item) => item.id === id)
+  if (task) {
+    task.completed = !task.completed
+  }
+}
 </script>
 <template>
   <h1>Task View</h1>
   <TaskForm />
-  <TaskList :tasks="myTasks" @delete-task="executeTaskDelete" />
+  <TaskList
+    :tasks="myTasks"
+    @delete-task="executeTaskDelete"
+    @completed-task="executeCompletedTask"
+  />
   <TaskStats :active="activeCount" :completed="completedCount" />
 </template>
