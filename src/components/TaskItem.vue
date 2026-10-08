@@ -11,7 +11,6 @@ const emit = defineEmits<{
 </script>
 
 <template>
-  <h1>task item</h1>
   <p>{{ list.id }} - {{ list.title }}</p>
   <p>{{ list.description }}</p>
   <p>{{ list.completed }}</p>
