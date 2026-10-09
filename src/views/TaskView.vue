@@ -43,10 +43,23 @@ const visibleTasks = computed(() => {
     filtered.value === 'active' ? !task.completed : task.completed,
   )
 })
+
+const generateId = () => {
+  return Date.now()
+}
+
+const getData = (taskTitle: string, taskDescription: string) => {
+  myTasks.value.push({
+    id: generateId(),
+    title: taskTitle,
+    description: taskDescription,
+    completed: false,
+  })
+}
 </script>
 <template>
   <h1>Task View</h1>
-  <TaskForm />
+  <TaskForm @add-task="getData" />
   <TaskFilter v-model:filters="filtered" />
   <TaskList
     :tasks="visibleTasks"
