@@ -21,11 +21,13 @@ const handleCompletedTask = (id: number) => {
 </script>
 <template>
   <h1>Todo List</h1>
-  <TaskItem
-    v-for="item in tasks"
-    :key="item.id"
-    :list="item"
-    @completed-task="handleCompletedTask"
-    @delete-task="handleTaskDelete"
-  />
+  <div>
+    <TaskItem
+      v-for="item in tasks"
+      :key="item.id"
+      :list="item"
+      @completed-task="handleCompletedTask"
+      @delete-task="handleTaskDelete"
+    />
+  </div>
 </template>

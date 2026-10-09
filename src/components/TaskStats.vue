@@ -6,5 +6,7 @@ const props = defineProps<{
 </script>
 
 <template>
-  <div>{{ active }} active | {{ completed }}completed</div>
+  <section class="flex row gap-2 align-middle justify-center mt-2">
+    <span class="font-light text-xs">{{ active }} active | {{ completed }} completed</span>
+  </section>
 </template>
