@@ -12,8 +12,11 @@ const emit = defineEmits<{
 }>()
 
 const handleSubmit = () => {
-  emit('set-name', name.value)
-  name.value = ''
+  const trimmedName = name.value.trim()
+  if (!trimmedName) return
+
+  emit('set-name', trimmedName)
+  name.value = trimmedName
 }
 </script>
 

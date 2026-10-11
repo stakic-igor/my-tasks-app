@@ -13,7 +13,10 @@ const emit = defineEmits<{
 }>()
 
 const handleSubmit = () => {
-  emit('add-task', taskTitle.value, taskDescription.value)
+  const trimmedTaskTitle = taskTitle.value.trim()
+  const trimmedTaskDescription = taskDescription.value.trim()
+  if (!trimmedTaskTitle || !trimmedTaskDescription) return
+  emit('add-task', trimmedTaskTitle, trimmedTaskDescription)
   taskTitle.value = ''
   taskDescription.value = ''
 }

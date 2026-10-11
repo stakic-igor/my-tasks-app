@@ -86,7 +86,7 @@ const emptyMessage = computed(() => {
 const isNameFormVisible = ref(false)
 
 const toggleNameForm = () => {
-  isNameFormVisible.value = !isFormVisible.value
+  isNameFormVisible.value = !isNameFormVisible.value
 }
 
 const myName = ref('')
