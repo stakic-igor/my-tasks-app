@@ -8,13 +8,19 @@ import TaskStats from '@/components/TaskStats.vue'
 import TaskFilter from '@/components/TaskFilter.vue'
 import TaskEmpty from '@/components/TaskEmpty.vue'
 import ShowForm from '@/components/ShowForm.vue'
+import SetNameForm from '@/components/SetNameForm.vue'
+import EditIcon from '@/icons/EditIcon.vue'
 
 const myTasks = ref<MyTasks[]>([])
 
 onMounted(() => {
   const tasks = localStorage.getItem('tasks')
+  const name = localStorage.getItem('name')
   if (tasks) {
     myTasks.value = JSON.parse(tasks)
+  }
+  if (name) {
+    myName.value = name
   }
 })
 const executeTaskDelete = (id: number) => {
@@ -76,9 +82,33 @@ const emptyMessage = computed(() => {
   if (filtered.value === 'active') return 'No active tasks.'
   return 'No completed tasks yet.'
 })
+
+const isNameFormVisible = ref(false)
+
+const toggleNameForm = () => {
+  isNameFormVisible.value = !isFormVisible.value
+}
+
+const myName = ref('')
+
+const addName = (name: string) => {
+  myName.value = name
+  localStorage.setItem('name', myName.value)
+  isNameFormVisible.value = false
+}
 </script>
 <template>
   <main class="mx-auto max-w-90 p-4 bg-[#FEFEFE] rounded shadow mt-32">
+    <section class="flex justify-between items-center">
+      <p class="font-light text-xs">
+        Welcome, <span v-if="myName">{{ myName }}</span
+        ><span v-else>Smart One</span>
+      </p>
+      <button class="h-6 w-6 cursor-pointer" @click="toggleNameForm">
+        <EditIcon class="text-black" />
+      </button>
+    </section>
+    <SetNameForm @set-name="addName" :isNameFormVisible="isNameFormVisible" />
     <div class="flex justify-between items-center">
       <h1 class="text-2xl font-bold mb-4">My Tasks</h1>
       <ShowForm @show-form="showForm" />
