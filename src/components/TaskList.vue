@@ -20,7 +20,6 @@ const handleCompletedTask = (id: number) => {
 }
 </script>
 <template>
-  <h1>Todo List</h1>
   <div>
     <TaskItem
       v-for="item in tasks"

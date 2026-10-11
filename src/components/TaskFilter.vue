@@ -11,10 +11,10 @@ const emit = defineEmits<{
 </script>
 
 <template>
-  <section class="flex row gap-2 align-middle justify-center">
+  <section class="flex row gap-2 align-middle justify-center bg-[#F8F8F8] p-1 rounded-lg w-full">
     <label
       for="all"
-      class="border-2 rounded-full px-2 py-1 min-w-16 text-center cursor-pointer has-checked:border-blue-500"
+      class="px-2 py-0.5 min-w-16 text-center text-sm cursor-pointer has-checked:rounded-lg has-checked:bg-[#FEFEFE] has-checked:shadow"
     >
       <input
         type="radio"
@@ -25,9 +25,12 @@ const emit = defineEmits<{
         @change="emit('update:filters', 'all')"
         class="mr-2 hidden"
       />
-      <span>All</span>
+      <span>All Tasks</span>
     </label>
-    <label for="active" class="border-2 rounded-full px-2 py-1 min-w-16 text-center cursor-pointer">
+    <label
+      for="active"
+      class="text-sm px-2 py-0.5 min-w-16 text-center cursor-pointer has-checked:rounded-lg has-checked:bg-[#FEFEFE] has-checked:shadow"
+    >
       <input
         type="radio"
         id="active"
@@ -41,7 +44,7 @@ const emit = defineEmits<{
     </label>
     <label
       for="completed"
-      class="border-2 rounded-full px-2 py-1 min-w-16 text-center cursor-pointer"
+      class="px-2 py-0.5 min-w-16 text-center text-sm cursor-pointer has-checked:rounded-lg has-checked:bg-[#FEFEFE] has-checked:shadow"
     >
       <input
         type="radio"

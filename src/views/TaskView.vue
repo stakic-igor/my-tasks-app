@@ -1,20 +1,25 @@
 <script setup lang="ts">
-import { ref, computed } from 'vue'
+import { ref, computed, onMounted } from 'vue'
 import type { MyTasks } from '@/types/task-list.ts'
 import type { taskFilter } from '@/types/task-filters.ts'
 import TaskList from '../components/TaskList.vue'
 import TaskForm from '@/components/TaskForm.vue'
 import TaskStats from '@/components/TaskStats.vue'
 import TaskFilter from '@/components/TaskFilter.vue'
+import TaskEmpty from '@/components/TaskEmpty.vue'
+import ShowForm from '@/components/ShowForm.vue'
 
-const myTasks = ref<MyTasks[]>([
-  { id: 1, title: 'Get up', description: 'Get ready to learn and work', completed: false },
-  { id: 2, title: 'Suplements', description: 'Take suplements', completed: false },
-  { id: 3, title: 'First practice project', description: 'Complete task app', completed: true },
-])
+const myTasks = ref<MyTasks[]>([])
 
+onMounted(() => {
+  const tasks = localStorage.getItem('tasks')
+  if (tasks) {
+    myTasks.value = JSON.parse(tasks)
+  }
+})
 const executeTaskDelete = (id: number) => {
   myTasks.value = myTasks.value.filter((item) => item.id != id)
+  localStorage.setItem('tasks', JSON.stringify(myTasks.value))
 }
 
 const completedCount = computed(() => {
@@ -55,16 +60,41 @@ const getData = (taskTitle: string, taskDescription: string) => {
     description: taskDescription,
     completed: false,
   })
+  localStorage.setItem('tasks', JSON.stringify(myTasks.value))
+  isFormVisible.value = false
 }
+
+const isFormVisible = ref(false)
+
+const showForm = () => {
+  isFormVisible.value = true
+}
+
+const emptyMessage = computed(() => {
+  if (myTasks.value.length === 0) return 'No tasks yet.'
+  if (filtered.value === 'active') return 'No active tasks.'
+  return 'No completed tasks yet.'
+})
 </script>
 <template>
-  <h1>Task View</h1>
-  <TaskForm @add-task="getData" />
-  <TaskFilter v-model:filters="filtered" />
-  <TaskList
-    :tasks="visibleTasks"
-    @delete-task="executeTaskDelete"
-    @completed-task="executeCompletedTask"
-  />
-  <TaskStats :active="activeCount" :completed="completedCount" />
+  <main class="mx-auto max-w-90 p-4 bg-[#FEFEFE] rounded shadow mt-32">
+    <div class="flex justify-between items-center">
+      <h1 class="text-2xl font-bold mb-4">My Tasks</h1>
+      <ShowForm @show-form="showForm" />
+    </div>
+    <div class="flex flex-row">
+      <TaskFilter v-model:filters="filtered" />
+    </div>
+    <TaskList
+      v-if="visibleTasks.length > 0"
+      :tasks="visibleTasks"
+      @delete-task="executeTaskDelete"
+      @completed-task="executeCompletedTask"
+    />
+    <TaskEmpty v-else :message="emptyMessage">
+      <ShowForm @show-form="showForm" />
+    </TaskEmpty>
+    <TaskForm @add-task="getData" :isFormVisible="isFormVisible" />
+    <TaskStats :active="activeCount" :completed="completedCount" />
+  </main>
 </template>
