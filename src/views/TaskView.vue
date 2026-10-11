@@ -18,7 +18,7 @@ onMounted(() => {
   }
 })
 const executeTaskDelete = (id: number) => {
-  myTasks.value = myTasks.value.filter((item) => item.id != id)
+  myTasks.value = myTasks.value.filter((item) => item.id !== id)
   localStorage.setItem('tasks', JSON.stringify(myTasks.value))
 }
 
@@ -35,6 +35,7 @@ const executeCompletedTask = (id: number) => {
   if (task) {
     task.completed = !task.completed
   }
+  localStorage.setItem('tasks', JSON.stringify(myTasks.value))
 }
 
 const filtered = ref<taskFilter>('all')
