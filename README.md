@@ -1,48 +1,94 @@
-# my-tasks-app
+# My Tasks
 
-This template should help get you started developing with Vue 3 in Vite.
+A lightweight task manager built with Vue 3, TypeScript, and Tailwind CSS. Create tasks, track your progress, and keep your list saved in your browser.
 
-## Recommended IDE Setup
+## Features
 
-[VS Code](https://code.visualstudio.com/) + [Vue (Official)](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur).
+- Add tasks with a required title and description.
+- Mark tasks as completed or active, and delete tasks.
+- Filter the list by all, active, or completed tasks.
+- View active and completed task counts.
+- See filter-specific messages when there are no matching tasks.
+- Set a display name for a personalized greeting.
+- Keep tasks and your display name between visits using local storage.
 
-## Recommended Browser Setup
+## Tech Stack
 
-- Chromium-based browsers (Chrome, Edge, Brave, etc.):
-  - [Vue.js devtools](https://chromewebstore.google.com/detail/vuejs-devtools/nhdogjmejiglipccpnnnanhbledajbpd)
-  - [Turn on Custom Object Formatter in Chrome DevTools](http://bit.ly/object-formatters)
-- Firefox:
-  - [Vue.js devtools](https://addons.mozilla.org/en-US/firefox/addon/vue-js-devtools/)
-  - [Turn on Custom Object Formatter in Firefox DevTools](https://fxdx.dev/firefox-devtools-custom-object-formatters/)
+- Vue 3 with the Composition API and single-file components
+- TypeScript
+- Vite
+- Tailwind CSS 4
+- ESLint, Oxlint, and Prettier
 
-## Type Support for `.vue` Imports in TS
+## Getting Started
 
-TypeScript cannot handle type information for `.vue` imports by default, so we replace the `tsc` CLI with `vue-tsc` for type checking. In editors, we need [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) to make the TypeScript language service aware of `.vue` types.
+### Requirements
 
-## Customize configuration
+- Node.js matching `^22.18.0 || >=24.12.0`
+- npm
 
-See [Vite Configuration Reference](https://vite.dev/config/).
+### Installation
 
-## Project Setup
+Run these commands from the project directory:
 
 ```sh
 npm install
-```
-
-### Compile and Hot-Reload for Development
-
-```sh
 npm run dev
 ```
 
-### Type-Check, Compile and Minify for Production
+Open the local URL printed by Vite in your browser.
+
+## Usage
+
+1. Use the add-task icon to open the task form.
+2. Enter a title and description, then select **Add task**.
+3. Use the task controls to toggle completion or delete a task.
+4. Switch between **All**, **Active**, and **Completed** to filter your list.
+5. Use the edit icon beside the greeting to set your display name.
+
+## Scripts
+
+| Command              | Description                                   |
+| -------------------- | --------------------------------------------- |
+| `npm run dev`        | Start the development server with hot reload. |
+| `npm run type-check` | Check TypeScript and Vue component types.     |
+| `npm run build`      | Run type checking and build for production.   |
+| `npm run build-only` | Build for production without type checking.   |
+| `npm run preview`    | Serve the production build locally.           |
+| `npm run lint`       | Run Oxlint and ESLint with automatic fixes.   |
+| `npm run format`     | Format files in `src/` with Prettier.         |
+
+Linting and formatting can modify source files.
+
+### Production Build
 
 ```sh
 npm run build
+npm run preview
 ```
 
-### Lint with [ESLint](https://eslint.org/)
+The production files are generated in `dist/`. The preview server is for checking the build locally, not production hosting.
 
-```sh
-npm run lint
+## Project Structure
+
+```text
+src/
+  assets/       Shared styles
+  components/   Task forms, list items, filters, and statistics
+  icons/        SVG icon components
+  types/        Task and filter TypeScript types
+  views/        Main task view and state management
+  App.vue       Root component
+  main.ts       Application entry point
+public/         Static assets
 ```
+
+## Data Storage
+
+Tasks are stored under the `tasks` local storage key, and the display name is stored under `name`. Data stays in the browser and origin where it was created; there is no backend, account system, or cross-device synchronization.
+
+Clearing the site's browser storage removes saved tasks and the display name. Avoid storing sensitive information in task descriptions.
+
+## Recommended Editor
+
+Use [VS Code](https://code.visualstudio.com/) with the [Vue (Official)](https://marketplace.visualstudio.com/items?itemName=Vue.volar) extension for Vue and TypeScript support.
